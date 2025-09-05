@@ -11,11 +11,13 @@ env:
 
 jobs:
   build:
-    name: build 
+    name: build   # <- This overrides the automatic "(22.x)" display
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [22.x]
+      # This prevents appending matrix value to the name
+      fail-fast: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
