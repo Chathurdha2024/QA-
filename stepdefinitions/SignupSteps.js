@@ -1,4 +1,4 @@
-const { When, Then } = require('@cucumber/cucumber');
+import { Given, When, Then } from '@cucumber/cucumber';
 const assert = require('assert');
 
 let userRepo = {};
