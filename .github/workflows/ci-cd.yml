@@ -15,7 +15,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: backend   # <-- important, must match folder name
+        working-directory: Backend   # <-- important, must match folder name
 
     steps:
       - name: Checkout code
@@ -35,10 +35,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Build backend (skip tests)
+      - name: Build Backend (skip tests)
         run: mvn -B -q -DskipTests package
 
-      - name: Run backend tests
+      - name: Run Backend tests
         run: mvn test
 
   frontend:
@@ -47,7 +47,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: frontend
+        working-directory: Frontend
 
     steps:
       - name: Checkout code
@@ -69,8 +69,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Lint frontend
+      - name: Lint Frontend
         run: npm run lint
 
-      - name: Build frontend
+      - name: Build Frontend
         run: npm run build
