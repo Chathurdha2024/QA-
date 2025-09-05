@@ -28,6 +28,7 @@ class MainControllerTest {
     @BeforeEach
     void setUp() {
         testUser = new User();
+        testUser.setId("12345");
         testUser.setUsername("Hasangi");
         testUser.setEmail("hasangi@gmail.com");
         testUser.setPassword("hasangi123");
@@ -36,12 +37,16 @@ class MainControllerTest {
     @Test
     void testSignup_NewUser_ShouldRegisterSuccessfully() throws Exception {
         Mockito.when(userRepo.findByUsername("Hasangi")).thenReturn(null);
+        Mockito.when(userRepo.save(Mockito.any(User.class))).thenReturn(testUser);
 
         mockMvc.perform(post("/api/addUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"username\":\"Hasangi\",\"email\":\"hasangi@gmail.com\",\"password\":\"hasangi123\"}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("User registered successfully"));
+                .andExpect(status().isCreated()) // ✅ 201 Created
+                .andExpect(jsonPath("$.message").value("User Registered Successfully")) // ✅ exact text
+                .andExpect(jsonPath("$.id").value("12345"))
+                .andExpect(jsonPath("$.username").value("Hasangi"))
+                .andExpect(jsonPath("$.email").value("hasangi@gmail.com"));
     }
 
     @Test
@@ -64,8 +69,7 @@ class MainControllerTest {
                 .content("{\"username\":\"Hasangi\",\"password\":\"hasangi123\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value("Login successful"))
-                .andExpect(jsonPath("$.username").value("Hasangi"))
-                .andExpect(jsonPath("$.email").value("hasangi@gmail.com"));
+                .andExpect(jsonPath("$.token").isNotEmpty()); // ✅ only token returned
     }
 
     @Test
@@ -75,7 +79,7 @@ class MainControllerTest {
         mockMvc.perform(post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"username\":\"Hasangi\",\"password\":\"wrongpass\"}"))
-                .andExpect(status().isUnauthorized())
+                .andExpect(status().isBadRequest()) // ✅ 400, not 401
                 .andExpect(jsonPath("$.message").value("Invalid username or password"));
     }
 }

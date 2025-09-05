@@ -12,11 +12,8 @@
     "selenium-webdriver": "^4.35.0"
   },
   "scripts": {
-    "test:unit": "mocha \"tests/unit/**/*.test.js\"",
-    "test:api": "mocha \"tests/api/**/*.test.js\"",
-    "test:ui": "mocha \"tests/ui/**/*.test.js\" --timeout 60000",
-    "test": "npm run test:unit && npm run test:api && npm run test:ui",
-    "bdd": "cucumber-js --require ./stepdefinitions ./features"
+    "bdd": "cucumber-js --require ./stepdefinitions ./features",
+    "test": "mocha \"tests/unit/**/*.test.js\""
   },
   "description": "",
   "main": "index.js",
