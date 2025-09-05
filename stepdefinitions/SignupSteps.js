@@ -1,5 +1,5 @@
 import { Given, When, Then } from '@cucumber/cucumber';
-const assert = require('assert');
+import assert from 'assert';
 
 let userRepo = {};
 let response = {};
