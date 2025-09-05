@@ -9,6 +9,7 @@ import fs from "fs";
   options.addArguments("--disable-logging");
 options.addArguments("--v=0");   // set verbosity to 0
 options.excludeSwitches(["enable-logging"]);    // Errors only (INFO/WARNING suppressed)
+options.addArguments("--headless=new");
 
   const driver = await new Builder()
     .forBrowser("chrome")

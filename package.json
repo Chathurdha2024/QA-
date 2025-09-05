@@ -12,6 +12,7 @@
     "selenium-webdriver": "^4.35.0"
   },
   "scripts": {
+    "selenium": "node signup.test.js",
     "bdd": "cucumber-js --require ./stepdefinitions ./features",
     "test": "mocha \"tests/unit/**/*.test.js\""
   },
