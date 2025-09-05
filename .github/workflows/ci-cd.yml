@@ -11,20 +11,12 @@ env:
 
 jobs:
   build:
-    name: build   # <- This overrides the automatic "(22.x)" display
+    name: build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [22.x]
-      # This prevents appending matrix value to the name
-      fail-fast: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ---------------------------
-      # Backend
-      # ---------------------------
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -50,13 +42,10 @@ jobs:
           name: backend-target
           path: target/
 
-      # ---------------------------
-      # Frontend + Node
-      # ---------------------------
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 22.x
           cache: 'npm'
 
       - name: Install dependencies
@@ -80,3 +69,4 @@ jobs:
           name: frontend-dist
           path: ./dist
           if-no-files-found: ignore
+
