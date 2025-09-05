@@ -54,7 +54,7 @@ jobs:
     needs: backend
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [22.x]
 
     steps:
       - name: Checkout repository
@@ -96,7 +96,7 @@ jobs:
     needs: [backend, frontend]
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [22.x]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -137,7 +137,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Install Chrome (stable) and dependencies
         run: |
@@ -160,20 +160,4 @@ jobs:
         env:
           CI: true
 
-  # ---------------------------
-  # Deploy job (placeholder)
-  # Add secrets to repo and replace actions as appropriate for your target (Docker Hub / Heroku / Cloud)
-  # ---------------------------
-  deploy:
-    name: Deploy (placeholder)
-    runs-on: ubuntu-latest
-    needs: [backend, frontend, node-tests]
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Deploy step placeholder
-        run: |
-          echo "All tests passed — deploy step goes here."
-          echo "Configure this job to push artifacts/image to your cloud provider or Docker Hub."
+  
